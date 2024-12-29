@@ -12,7 +12,8 @@ namespace ZI_18627
     {
         static void Main(string[] args)
         {
-            string filePath = "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\ZI_18627\\file18627.txt";
+            Console.WriteLine("Unesite putanju do fajla koji želite da šifrujete:");
+            string filePath = Console.ReadLine();
 
             if (!File.Exists(filePath))
             {
@@ -20,10 +21,8 @@ namespace ZI_18627
                 return;
             }
 
-            string fileContent = File.ReadAllText(filePath);
-            byte[] fileData = Encoding.UTF8.GetBytes(fileContent);
+            byte[] fileData = File.ReadAllBytes(filePath);
 
-            // Izbor algoritma
             Console.WriteLine("Izaberite algoritam: 1. Bifid, 2. RC6, 3. RC6 OFB");
             int choice;
             while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 3)
@@ -40,18 +39,15 @@ namespace ZI_18627
                 byte[] publicKey = diffieHellman.PublicKey.ToByteArray();
                 Console.WriteLine("Javni ključ (šalje se primaocu):\n" + Convert.ToBase64String(publicKey));
 
-                // Simulacija deljenja javnog ključa
                 Console.WriteLine("Unesite javni ključ primaoca:");
                 string recipientPublicKeyBase64 = Console.ReadLine();
                 byte[] recipientPublicKey = Convert.FromBase64String(recipientPublicKeyBase64);
 
-                // Generisanje zajedničkog tajnog ključa
                 using (ECDiffieHellmanCng recipientKey = new ECDiffieHellmanCng(CngKey.Import(recipientPublicKey, CngKeyBlobFormat.EccPublicBlob)))
                 {
                     byte[] sharedKey = diffieHellman.DeriveKeyMaterial(recipientKey.PublicKey);
                     Console.WriteLine("Zajednički ključ generisan: \n" + Convert.ToBase64String(sharedKey));
 
-                    // Izbor algoritma i šifrovanje
                     ICipher cipher;
                     switch (choice)
                     {
@@ -71,14 +67,15 @@ namespace ZI_18627
 
                     // Šifrovanje
                     byte[] encrypted = cipher.Encrypt(fileData, sharedKey);
-                    File.WriteAllBytes("encrypted.dat", encrypted);
-                    Console.WriteLine("Fajl je uspešno kodiran i sačuvan u 'encrypted.dat'.");
+                    string encryptedPath = Path.Combine(Path.GetDirectoryName(filePath), "encrypted.dat");
+                    File.WriteAllBytes(encryptedPath, encrypted);
+                    Console.WriteLine($"Fajl je uspešno šifrovan i sačuvan kao '{encryptedPath}'.");
 
                     // Dešifrovanje
                     byte[] decrypted = cipher.Decrypt(encrypted, sharedKey);
-                    string decryptedContent = Encoding.UTF8.GetString(decrypted);
-                    File.WriteAllText("decrypted.txt", decryptedContent);
-                    Console.WriteLine("Dešifrovani sadržaj je sačuvan u 'decrypted.txt'.");
+                    string decryptedPath = Path.Combine(Path.GetDirectoryName(filePath), "decrypted" + Path.GetExtension(filePath));
+                    File.WriteAllBytes(decryptedPath, decrypted);
+                    Console.WriteLine($"Fajl je uspešno dešifrovan i sačuvan kao '{decryptedPath}'.");
                 }
             }
         }

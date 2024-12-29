@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,69 +14,69 @@ namespace ZI_18627
 
         public byte[] Encrypt(byte[] input, byte[] key)
         {
-            // Generisanje IV (inicijalnog vektora)
             byte[] iv = GenerateIV();
 
-            // Pridruži IV na početak izlaza
-            byte[] ciphertextWithIV = new byte[iv.Length + input.Length];
-            Buffer.BlockCopy(iv, 0, ciphertextWithIV, 0, iv.Length);
+            using (MemoryStream ms = new MemoryStream())
+            {
+                ms.Write(iv, 0, iv.Length);
 
-            // OFB proces šifrovanja
-            byte[] encrypted = OFBMode(input, key, iv, true);
-            Buffer.BlockCopy(encrypted, 0, ciphertextWithIV, iv.Length, encrypted.Length);
+                byte[] encrypted = OFBMode(input, key, iv);
+                ms.Write(encrypted, 0, encrypted.Length);
 
-            return ciphertextWithIV;
+                return ms.ToArray();
+            }
         }
 
         public byte[] Decrypt(byte[] input, byte[] key)
         {
-            // Ekstrakcija IV sa početka ulaza
-            byte[] iv = ExtractIV(input);
+            byte[] iv = new byte[16];
+            Buffer.BlockCopy(input, 0, iv, 0, iv.Length);
+
             byte[] ciphertext = new byte[input.Length - iv.Length];
             Buffer.BlockCopy(input, iv.Length, ciphertext, 0, ciphertext.Length);
 
-            // OFB proces dešifrovanja
-            return OFBMode(ciphertext, key, iv, false);
+            byte[] decrypted = OFBMode(ciphertext, key, iv);
+
+            return decrypted;
         }
 
-        private byte[] OFBMode(byte[] input, byte[] key, byte[] iv, bool encrypt)
+
+        private byte[] OFBMode(byte[] input, byte[] key, byte[] iv)
         {
-            // Keystream generacija pomoću RC6
-            byte[] keystreamBlock = new byte[iv.Length];
-            Buffer.BlockCopy(iv, 0, keystreamBlock, 0, iv.Length);
-
+            int blockSize = 16; // Veličina bloka je 16 bajtova za RC6
             byte[] output = new byte[input.Length];
-            for (int i = 0; i < input.Length; i += iv.Length)
-            {
-                // Šifrovanje IV (keystream generacija)
-                keystreamBlock = _rc6Cipher.Encrypt(keystreamBlock, key);
 
-                // XOR keystream-a sa podacima (plaintext/ciphertext)
-                for (int j = 0; j < iv.Length && (i + j) < input.Length; j++)
+            byte[] keystreamBlock = new byte[blockSize];
+            Buffer.BlockCopy(iv, 0, keystreamBlock, 0, blockSize);
+
+            for (int i = 0; i < (input.Length + blockSize - 1) / blockSize; i++)
+            {
+                int offset = i * blockSize;
+
+                // Generiši keystream blok
+                byte[] localKeystream = _rc6Cipher.Encrypt(keystreamBlock, key);
+                Array.Resize(ref localKeystream, blockSize); // Osiguraj da ima tačno 16 bajtova
+                Buffer.BlockCopy(localKeystream, 0, keystreamBlock, 0, blockSize);
+
+                // XOR keystream-a sa podacima
+                for (int j = 0; j < blockSize && offset + j < input.Length; j++)
                 {
-                    output[i + j] = (byte)(input[i + j] ^ keystreamBlock[j]);
+                    output[offset + j] = (byte)(input[offset + j] ^ localKeystream[j]);
                 }
             }
 
             return output;
         }
 
+
+
         private byte[] GenerateIV()
         {
-            // Generisanje slučajnog IV-a od 16 bajtova (veličina bloka RC6)
             byte[] iv = new byte[16];
             using (var rng = RandomNumberGenerator.Create())
             {
                 rng.GetBytes(iv);
             }
-            return iv;
-        }
-
-        private byte[] ExtractIV(byte[] input)
-        {
-            // Prvih 16 bajtova su IV
-            byte[] iv = new byte[16];
-            Buffer.BlockCopy(input, 0, iv, 0, iv.Length);
             return iv;
         }
     }
