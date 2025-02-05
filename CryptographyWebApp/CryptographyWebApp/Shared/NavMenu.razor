@@ -1,0 +1,151 @@
+﻿<nav class="nav-menu">
+    <div class="nav-header">
+        <img src="images/cyber-security.png" alt="Navbar Icon" class="nav-icon" />
+        <button class="hamburger-icon" @onclick="ToggleMenu">
+            ☰
+        </button>
+    </div>
+    <ul class="@(isMenuOpen ? "open" : "")">
+        <li><a href="/home">Home</a></li>
+        <li><a href="/manual-encryption">Manual Encryption</a></li>
+        <li><a href="/automatic-encryption">Automatic Encryption</a></li>
+        <li><a href="/file-exchange">File Exchange</a></li>
+    </ul>
+</nav>
+
+<style>
+    .nav-menu {
+        background: linear-gradient(135deg, #1e1e2f, #6437a7, #6e2dc2);
+        padding: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        animation: gradientAnimation 10s infinite alternate;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .nav-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .nav-icon {
+        width: 40px;
+        height: auto;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+    }
+
+        .nav-icon:hover {
+            transform: scale(1.1);
+        }
+
+    .hamburger-icon {
+        display: none; /* Hidden by default */
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+        .hamburger-icon:hover {
+            opacity: 0.8;
+        }
+
+    .nav-menu ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex: 1;
+        justify-content: space-around;
+        gap: 1rem;
+    }
+
+    .nav-menu li {
+        flex: 1;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        display: block;
+    }
+
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-menu a:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+    @@keyframes gradientAnimation {
+        0% {
+            background: linear-gradient(135deg, #1e1e2f, #6437a7, #6e2dc2);
+        }
+
+        100% {
+            background: linear-gradient(135deg, #1e1e2f, #4939a2, #5620b9);
+        }
+    }
+
+    /* Responsive Rules */
+    @@media (max-width: 768px) {
+        .nav-menu {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 0.5rem;
+        }
+
+        .nav-header {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .hamburger-icon {
+            display: block; /* Show hamburger icon on small screens */
+        }
+
+        .nav-menu ul {
+            flex-direction: column;
+            width: 100%;
+            gap: 0.5rem;
+            display: none; /* Hide links by default on small screens */
+        }
+
+            .nav-menu ul.open {
+                display: flex; /* Show links when menu is open */
+            }
+
+        .nav-menu li {
+            width: 100%;
+        }
+
+        .nav-menu a {
+            font-size: 1rem;
+            padding: 0.5rem;
+        }
+    }
+</style>
+
+@code {
+    private bool isMenuOpen = false;
+
+    private void ToggleMenu()
+    {
+        isMenuOpen = !isMenuOpen;
+    }
+}

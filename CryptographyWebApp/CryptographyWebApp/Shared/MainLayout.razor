@@ -1,0 +1,27 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager Navigation
+
+<div class="main-layout">
+    @if (ShowNavMenu)
+    {
+        <NavMenu />
+    }
+    <div class="page-content">
+        @Body
+    </div>
+</div>
+
+@code {
+    private bool ShowNavMenu => !Navigation.Uri.EndsWith("/");
+}
+
+<style>
+    .main-layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .page-content {
+        
+    }
+</style>

@@ -1,0 +1,22 @@
+﻿@page "/"
+
+<div class="hero-container">
+    <div class="content">
+        <div class="icon-container">
+            <img src="images/security.png" alt="App Logo" />
+        </div>
+        <h1>Welcome to Cryptography App</h1>
+        <p>Encrypt, decrypt, and secure your data effortlessly with our app.</p>
+        <button @onclick="NavigateToHomePage" class="primary-button">Let's get started!</button>
+    </div>
+</div>
+
+@code {
+    private void NavigateToHomePage()
+    {
+        NavigationManager.NavigateTo("/home");
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+}

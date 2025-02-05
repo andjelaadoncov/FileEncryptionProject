@@ -1,0 +1,64 @@
+﻿@page "/file-exchange"
+
+@using CryptographyWebApp.Services
+@inject FileExchangeService FileExchangeService
+@inject CryptoService CryptoService
+@using System.IO
+@using System.Security.Cryptography
+
+<h3>File Exchange</h3>
+
+<button @onclick="StartServer">Start as Server</button>
+<button @onclick="ConnectToServer">Connect to Server</button>
+
+<InputFile OnChange="OnFileChange" />
+<select @bind="SelectedAlgorithm">
+    <option>Bifid</option>
+    <option>RC6</option>
+    <option>RC6 OFB</option>
+</select>
+<input type="text" @bind="SharedKey" placeholder="Enter key" />
+<button @onclick="SendFile" disabled="@(selectedFile == null || string.IsNullOrEmpty(SharedKey))">Send File</button>
+
+@code {
+    private byte[] selectedFile;
+    private string fileName;
+    private long fileSize;
+    private string SelectedAlgorithm = "Bifid";
+    private string SharedKey;
+
+    private async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        fileName = file.Name;
+        fileSize = file.Size;
+
+        using var stream = file.OpenReadStream();
+        selectedFile = new byte[fileSize];
+        await stream.ReadAsync(selectedFile, 0, (int)fileSize);
+    }
+
+
+    private async Task SendFile()
+    {
+        if (selectedFile == null || string.IsNullOrEmpty(SharedKey))
+        {
+            Console.WriteLine("No file selected or key missing.");
+            return;
+        }
+
+        byte[] encryptedFile = CryptoService.EncryptFile(selectedFile, SelectedAlgorithm, System.Text.Encoding.UTF8.GetBytes(SharedKey));
+        await FileExchangeService.SendFile("127.0.0.1", encryptedFile, fileName, SelectedAlgorithm, SharedKey);
+    }
+
+    private async Task StartServer()
+    {
+        await FileExchangeService.StartServer(SelectedAlgorithm, SharedKey);
+    }
+
+    private async Task ConnectToServer()
+    {
+        Console.WriteLine("Connecting to server...");
+        await FileExchangeService.ConnectToServer("127.0.0.1", SelectedAlgorithm, SharedKey);
+    }
+}

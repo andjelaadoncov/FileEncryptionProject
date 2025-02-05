@@ -1,0 +1,270 @@
+﻿@page "/manual-encryption"
+
+@using System.IO
+@using CryptographyWebApp.Services
+@using System.Security.Cryptography
+@inject CryptoService CryptoService
+@inject IConfiguration Configuration
+
+<div class="encryption-page">
+    <div class="left-section">
+        <!-- Manual Encryption Section -->
+        <div class="encryption-container">
+            <h3>Manual File Encryption</h3>
+
+            <div class="form-group">
+                <label for="fileInput">Select a file:</label>
+                <InputFile OnChange="HandleFileSelection" />
+            </div>
+
+            <div class="form-group">
+                <label for="algorithm">Select an algorithm:</label>
+                <select @bind="SelectedAlgorithm" class="dropdown">
+                    <option value="Bifid">Bifid</option>
+                    <option value="RC6">RC6</option>
+                    <option value="RC6 OFB">RC6 OFB</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button class="primary-button" @onclick="EncryptFile">Encrypt</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-section">
+        <div class="encryption-container">
+            <div class="file-table-container">
+                <h4>X Directory Files</h4>
+                <table class="file-table">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var file in XFiles)
+                        {
+                            <tr>
+                                <td>@file</td>
+                                <td>
+                                    <button class="action-button" @onclick="() => OpenDecryptPopup(file)">Decrypt</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Decrypt Popup -->
+@if (ShowDecryptPopup)
+{
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <h4>Decrypt your chosen file</h4>
+            <div class="form-group">
+                <label for="decryptAlgorithm">Select an algorithm:</label>
+                <select @bind="DecryptAlgorithm" class="dropdown">
+                    <option value="Bifid">Bifid</option>
+                    <option value="RC6">RC6</option>
+                    <option value="RC6 OFB">RC6 OFB</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="outputFolder">Output Folder:</label>
+                <input type="text" @bind="DecryptOutputFolder" class="input-field" placeholder="Enter output folder path" />
+            </div>
+            <div class="button-group">
+                <button class="primary-button" @onclick="DecryptFileFromList">Decrypt</button>
+                <button class="action-button" @onclick="CloseDecryptPopup">Cancel</button>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Result Message -->
+<div class="message-box">
+    @if (!string.IsNullOrEmpty(ResultMessage))
+    {
+        <p class="@ResultMessageClass">@ResultMessage</p>
+    }
+</div>
+
+@code {
+    private string _selectedAlgorithm = "Bifid";
+    private string SelectedAlgorithm
+    {
+        get => _selectedAlgorithm;
+        set
+        {
+            _selectedAlgorithm = value;
+        }
+    }
+
+    private string FilePath;
+    private string ResultMessage;
+    private byte[] SharedKey;
+    private string OutputFolder;
+
+    private List<string> XFiles = new();
+
+    // Decrypt Popup State
+    private bool ShowDecryptPopup = false;
+    private string DecryptAlgorithm = "Bifid";
+    private string DecryptOutputFolder;
+    private string SelectedFileForDecryption;
+
+    protected override void OnInitialized()
+    {
+        SharedKey = GenerateDiffieHellmanKey();
+        OutputFolder = Configuration["FileDirectories:X"] ?? "X";
+        RefreshFileLists();
+    }
+
+    private async Task HandleFileSelection(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            var tempPath = Path.Combine(Path.GetTempPath(), file.Name);
+
+            using var stream = file.OpenReadStream();
+            using var fileStream = File.Create(tempPath);
+            await stream.CopyToAsync(fileStream);
+
+            FilePath = tempPath;
+            ResultMessage = $"File selected: {file.Name}";
+        }
+        catch (Exception ex)
+        {
+            ResultMessage = $"Error selecting file: {ex.Message}";
+        }
+    }
+
+    private async Task EncryptFile()
+    {
+        if (string.IsNullOrEmpty(FilePath))
+        {
+            ResultMessage = "Please select a file.";
+            return;
+        }
+
+        if (!Directory.Exists(OutputFolder))
+        {
+            Directory.CreateDirectory(OutputFolder);
+        }
+
+        try
+        {
+            byte[] fileData = File.ReadAllBytes(FilePath);
+            string originalExtension = Path.GetExtension(FilePath);
+
+            // Encode the original extension as a fixed-length header (e.g., 20 bytes)
+            byte[] extensionBytes = System.Text.Encoding.UTF8.GetBytes(originalExtension.PadRight(20, '\0'));
+            byte[] combinedData = new byte[extensionBytes.Length + fileData.Length];
+            Buffer.BlockCopy(extensionBytes, 0, combinedData, 0, extensionBytes.Length);
+            Buffer.BlockCopy(fileData, 0, combinedData, extensionBytes.Length, fileData.Length);
+
+            byte[] encryptedData = CryptoService.EncryptFile(combinedData, SelectedAlgorithm, SharedKey);
+
+            string encryptedFileName = Path.GetFileNameWithoutExtension(FilePath) + "_encrypted.dat";
+            string encryptedPath = Path.Combine(OutputFolder, encryptedFileName);
+            await File.WriteAllBytesAsync(encryptedPath, encryptedData);
+
+            ResultMessage = $"File successfully encrypted and saved at {encryptedPath}.";
+            RefreshFileLists();
+        }
+        catch (Exception ex)
+        {
+            ResultMessage = $"Error during encryption: {ex.Message}";
+        }
+    }
+
+    private void OpenDecryptPopup(string filePath)
+    {
+        SelectedFileForDecryption = filePath;
+        DecryptOutputFolder = OutputFolder; // Default to the X directory
+        ShowDecryptPopup = true;
+    }
+
+    private void CloseDecryptPopup()
+    {
+        ShowDecryptPopup = false;
+    }
+
+    private async Task DecryptFileFromList()
+    {
+        try
+        {
+            string fullPath = Path.Combine(OutputFolder, SelectedFileForDecryption);
+            if (!File.Exists(fullPath))
+            {
+                ResultMessage = $"File {SelectedFileForDecryption} does not exist.";
+                return;
+            }
+
+            byte[] encryptedData = File.ReadAllBytes(fullPath);
+            if (encryptedData.Length == 0)
+            {
+                ResultMessage = $"File {SelectedFileForDecryption} is empty.";
+                return;
+            }
+
+            byte[] decryptedData = CryptoService.DecryptFile(encryptedData, DecryptAlgorithm, SharedKey);
+
+            // Extract the original extension from the decrypted data (first 20 bytes)
+            byte[] extensionBytes = new byte[20];
+            Buffer.BlockCopy(decryptedData, 0, extensionBytes, 0, extensionBytes.Length);
+            string originalExtension = System.Text.Encoding.UTF8.GetString(extensionBytes).TrimEnd('\0');
+
+            // Extract the actual file data (remaining bytes after the extension header)
+            byte[] fileData = new byte[decryptedData.Length - extensionBytes.Length];
+            Buffer.BlockCopy(decryptedData, extensionBytes.Length, fileData, 0, fileData.Length);
+
+            // Save the decrypted file with the original extension
+            string decryptedFileName = Path.GetFileNameWithoutExtension(SelectedFileForDecryption) + "_decrypted" + originalExtension;
+            string decryptedPath = Path.Combine(DecryptOutputFolder, decryptedFileName);
+            await File.WriteAllBytesAsync(decryptedPath, fileData);
+
+            ResultMessage = $"File {SelectedFileForDecryption} successfully decrypted to {decryptedPath}.";
+            RefreshFileLists();
+            CloseDecryptPopup();
+        }
+        catch (CryptographicException cryptoEx)
+        {
+            ResultMessage = $"Decryption failed: {cryptoEx.Message}. Please ensure the correct key and algorithm are used.";
+        }
+        catch (Exception ex)
+        {
+            ResultMessage = $"Error decrypting file {SelectedFileForDecryption}: {ex.Message}";
+        }
+    }
+
+    private void RefreshFileLists()
+    {
+        XFiles = Directory.Exists(OutputFolder)
+            ? Directory.GetFiles(OutputFolder).Select(Path.GetFileName).ToList()
+            : new List<string>();
+    }
+
+    private byte[] GenerateDiffieHellmanKey()
+    {
+        using var diffieHellman = new ECDiffieHellmanCng
+            {
+                KeyDerivationFunction = ECDiffieHellmanKeyDerivationFunction.Hash,
+                HashAlgorithm = CngAlgorithm.Sha256
+            };
+
+        byte[] publicKey = diffieHellman.PublicKey.ToByteArray();
+        byte[] recipientPublicKey = publicKey;
+
+        using var recipientKey = new ECDiffieHellmanCng(CngKey.Import(recipientPublicKey, CngKeyBlobFormat.EccPublicBlob));
+        return diffieHellman.DeriveKeyMaterial(recipientKey.PublicKey);
+    }
+
+    private string ResultMessageClass => ResultMessage.Contains("successfully") ? "success-message" : "error-message";
+}
