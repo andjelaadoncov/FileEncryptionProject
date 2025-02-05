@@ -29,7 +29,7 @@
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        var tempPath = Path.GetTempFileName();
+        var tempPath = Path.Combine(Path.GetTempPath(), file.Name); // Čuva originalno ime fajla
 
         using (var stream = file.OpenReadStream())
         using (var fileStream = File.Create(tempPath))
@@ -40,6 +40,7 @@
         selectedFilePath = tempPath;
         Console.WriteLine($"File selected: {selectedFilePath}");
     }
+
 
     private async Task SendFile()
     {
