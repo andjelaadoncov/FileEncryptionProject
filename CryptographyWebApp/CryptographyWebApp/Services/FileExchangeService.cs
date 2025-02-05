@@ -2,30 +2,25 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace CryptographyWebApp.Services
 {
     public class FileExchangeService
     {
-        private const int Port = 12345;
-        private string _selectedAlgorithm;
-        private readonly CryptoService _cryptoService;
-        private string _sharedKey;
+        private TcpListener _listener;
+        private int _serverPort;
 
-        public async Task StartServer(string selectedAlgorithm, string sharedKey)
+        public async Task StartServer(int port)
         {
-            _selectedAlgorithm = selectedAlgorithm;
-            _sharedKey = sharedKey;
-
-            TcpListener listener = new TcpListener(IPAddress.Any, Port);
-            listener.Start();
-            Console.WriteLine("Server started...");
+            _serverPort = port;
+            _listener = new TcpListener(IPAddress.Any, _serverPort);
+            _listener.Start();
+            Console.WriteLine($"Server started on port {_serverPort}...");
 
             while (true)
             {
-                TcpClient client = await listener.AcceptTcpClientAsync();
+                TcpClient client = await _listener.AcceptTcpClientAsync();
                 _ = HandleClientAsync(client);
             }
         }
@@ -34,53 +29,69 @@ namespace CryptographyWebApp.Services
         {
             try
             {
-                using (NetworkStream stream = client.GetStream())
-                using (BinaryReader reader = new BinaryReader(stream))
+                using (NetworkStream networkStream = client.GetStream())
+                using (BinaryReader reader = new BinaryReader(networkStream))
                 {
                     string fileName = reader.ReadString();
                     long fileSize = reader.ReadInt64();
-                    int hashLength = reader.ReadInt32();
-                    byte[] hash = reader.ReadBytes(hashLength);
-                    byte[] fileContent = reader.ReadBytes((int)fileSize);
 
-                    // Verify hash
-                    byte[] computedHash = ComputeSHA1Hash(fileContent);
-                    if (Convert.ToBase64String(computedHash) == Convert.ToBase64String(hash))
-                    {
-                        // Decrypt file content
-                        byte[] decryptedContent = _cryptoService.DecryptFile(fileContent, _selectedAlgorithm, System.Text.Encoding.UTF8.GetBytes(_sharedKey));
+                    Console.WriteLine($"Receiving file: {fileName} ({fileSize} bytes)");
 
-                        // Save file
-                        File.WriteAllBytes(fileName, decryptedContent);
-                        Console.WriteLine("File received and verified successfully.");
-                    }
-                    else
+                    string savePath = Path.Combine(Directory.GetCurrentDirectory(), "Received_" + fileName);
+                    using (FileStream fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write))
                     {
-                        Console.WriteLine("File verification failed.");
+                        byte[] buffer = new byte[4096];
+                        long totalBytesReceived = 0;
+
+                        while (totalBytesReceived < fileSize)
+                        {
+                            int bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
+                            if (bytesRead == 0) break;
+
+                            await fileStream.WriteAsync(buffer, 0, bytesRead);
+                            totalBytesReceived += bytesRead;
+                        }
                     }
+
+                    Console.WriteLine($"File {fileName} successfully received.");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error handling client: {ex.Message}");
             }
+            finally
+            {
+                client.Close();
+            }
         }
 
-        public async Task SendFile(string ipAddress, byte[] fileContent, string fileName, string selectedAlgorithm, string sharedKey)
+        public async Task SendFile(string ipAddress, int port, string filePath)
         {
             try
             {
-                TcpClient client = new TcpClient(ipAddress, Port);
-                using (NetworkStream stream = client.GetStream())
-                using (BinaryWriter writer = new BinaryWriter(stream))
+                using (TcpClient client = new TcpClient(ipAddress, port))
+                using (NetworkStream networkStream = client.GetStream())
+                using (BinaryWriter writer = new BinaryWriter(networkStream))
                 {
-                    byte[] hash = ComputeSHA1Hash(fileContent);
+                    string fileName = Path.GetFileName(filePath);
+                    long fileSize = new FileInfo(filePath).Length;
 
+                    // Šaljemo metapodatke
                     writer.Write(fileName);
-                    writer.Write((long)fileContent.Length);
-                    writer.Write(hash.Length);
-                    writer.Write(hash);
-                    writer.Write(fileContent);
+                    writer.Write(fileSize);
+
+                    // Šaljemo fajl
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    {
+                        byte[] buffer = new byte[4096];
+                        int bytesRead;
+
+                        while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        {
+                            await networkStream.WriteAsync(buffer, 0, bytesRead);
+                        }
+                    }
 
                     Console.WriteLine("File sent successfully.");
                 }
@@ -88,23 +99,6 @@ namespace CryptographyWebApp.Services
             catch (Exception ex)
             {
                 Console.WriteLine($"Error sending file: {ex.Message}");
-            }
-        }
-
-        public async Task ConnectToServer(string ipAddress, string selectedAlgorithm, string sharedKey)
-        {
-            _selectedAlgorithm = selectedAlgorithm;
-            _sharedKey = sharedKey;
-
-            TcpClient client = new TcpClient(ipAddress, Port);
-            Console.WriteLine("Connected to server.");
-        }
-
-        private byte[] ComputeSHA1Hash(byte[] data)
-        {
-            using (SHA1 sha1 = SHA1.Create())
-            {
-                return sha1.ComputeHash(data);
             }
         }
     }

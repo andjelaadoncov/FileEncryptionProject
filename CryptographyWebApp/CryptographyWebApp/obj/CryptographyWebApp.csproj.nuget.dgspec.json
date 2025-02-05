@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj": {}
+    "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj": {}
   },
   "projects": {
-    "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj": {
+    "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj",
+        "projectUniqueName": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj",
         "projectName": "CryptographyWebApp",
-        "projectPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj",
+        "projectPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\CryptographyWebApp.csproj",
         "packagesPath": "C:\\Users\\andje\\.nuget\\packages\\",
-        "outputPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\",
+        "outputPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\andje\\AppData\\Roaming\\NuGet\\NuGet.Config",

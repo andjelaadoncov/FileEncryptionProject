@@ -9,63 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CryptographyWebApp
 build_property.RootNamespace = CryptographyWebApp
-build_property.ProjectDir = C:\FAKULTET\7_SEMESTAR\ZASTITA INFORMACIJA\novi_projekat\CryptographyWebApp\CryptographyWebApp\
+build_property.ProjectDir = C:\FAKULTET\7_SEMESTAR\ZASTITA INFORMACIJA\projekat_18627\FileEncryptionProject\CryptographyWebApp\CryptographyWebApp\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\FAKULTET\7_SEMESTAR\ZASTITA INFORMACIJA\novi_projekat\CryptographyWebApp\CryptographyWebApp
+build_property.MSBuildProjectDirectory = C:\FAKULTET\7_SEMESTAR\ZASTITA INFORMACIJA\projekat_18627\FileEncryptionProject\CryptographyWebApp\CryptographyWebApp
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/App.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/App.razor]
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/AutomaticEncryptionPage.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/AutomaticEncryptionPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXV0b21hdGljRW5jcnlwdGlvblBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/EncryptionPage.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/EncryptionPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRW5jcnlwdGlvblBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/FileExchangePage.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/FileExchangePage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmlsZUV4Y2hhbmdlUGFnZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/HomePage.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/HomePage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZVBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/Index.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/ManualEncryptionPage.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/ManualEncryptionPage.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFudWFsRW5jcnlwdGlvblBhZ2UucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Shared/NavMenu.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Shared/NavMenu.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/_Imports.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Shared/MainLayout.razor]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Shared/MainLayout.razor]
 build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = b-huvww3hrot
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/Error.cshtml]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/_Host.cshtml]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/_Host.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/novi_projekat/CryptographyWebApp/CryptographyWebApp/Pages/_Layout.cshtml]
+[C:/FAKULTET/7_SEMESTAR/ZASTITA INFORMACIJA/projekat_18627/FileEncryptionProject/CryptographyWebApp/CryptographyWebApp/Pages/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

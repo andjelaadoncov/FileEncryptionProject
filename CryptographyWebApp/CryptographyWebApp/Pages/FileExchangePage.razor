@@ -2,63 +2,58 @@
 
 @using CryptographyWebApp.Services
 @inject FileExchangeService FileExchangeService
-@inject CryptoService CryptoService
-@using System.IO
-@using System.Security.Cryptography
 
 <h3>File Exchange</h3>
 
+<label>Server Port:</label>
+<input type="number" @bind="ServerPort" min="1024" max="65535" />
 <button @onclick="StartServer">Start as Server</button>
-<button @onclick="ConnectToServer">Connect to Server</button>
+
+<br />
+
+<label>Server IP:</label>
+<input type="text" @bind="ServerIpAddress" placeholder="Enter server IP" />
+
+<label>Port:</label>
+<input type="number" @bind="ClientPort" min="1024" max="65535" />
 
 <InputFile OnChange="OnFileChange" />
-<select @bind="SelectedAlgorithm">
-    <option>Bifid</option>
-    <option>RC6</option>
-    <option>RC6 OFB</option>
-</select>
-<input type="text" @bind="SharedKey" placeholder="Enter key" />
-<button @onclick="SendFile" disabled="@(selectedFile == null || string.IsNullOrEmpty(SharedKey))">Send File</button>
+<button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
 
 @code {
-    private byte[] selectedFile;
-    private string fileName;
-    private long fileSize;
-    private string SelectedAlgorithm = "Bifid";
-    private string SharedKey;
+    private int ServerPort = 12345;
+    private string ServerIpAddress = "127.0.0.1";
+    private int ClientPort = 12345;
+    private string selectedFilePath;
 
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        fileName = file.Name;
-        fileSize = file.Size;
+        var tempPath = Path.GetTempFileName();
 
-        using var stream = file.OpenReadStream();
-        selectedFile = new byte[fileSize];
-        await stream.ReadAsync(selectedFile, 0, (int)fileSize);
+        using (var stream = file.OpenReadStream())
+        using (var fileStream = File.Create(tempPath))
+        {
+            await stream.CopyToAsync(fileStream);
+        }
+
+        selectedFilePath = tempPath;
+        Console.WriteLine($"File selected: {selectedFilePath}");
     }
-
 
     private async Task SendFile()
     {
-        if (selectedFile == null || string.IsNullOrEmpty(SharedKey))
+        if (string.IsNullOrEmpty(selectedFilePath))
         {
-            Console.WriteLine("No file selected or key missing.");
+            Console.WriteLine("No file selected.");
             return;
         }
 
-        byte[] encryptedFile = CryptoService.EncryptFile(selectedFile, SelectedAlgorithm, System.Text.Encoding.UTF8.GetBytes(SharedKey));
-        await FileExchangeService.SendFile("127.0.0.1", encryptedFile, fileName, SelectedAlgorithm, SharedKey);
+        await FileExchangeService.SendFile(ServerIpAddress, ClientPort, selectedFilePath);
     }
 
     private async Task StartServer()
     {
-        await FileExchangeService.StartServer(SelectedAlgorithm, SharedKey);
-    }
-
-    private async Task ConnectToServer()
-    {
-        Console.WriteLine("Connecting to server...");
-        await FileExchangeService.ConnectToServer("127.0.0.1", SelectedAlgorithm, SharedKey);
+        await FileExchangeService.StartServer(ServerPort);
     }
 }

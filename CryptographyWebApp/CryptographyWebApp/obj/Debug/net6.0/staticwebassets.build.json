@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qgus+ekH8ZI5G9AHVf/mcfWVXVyxNIE1bAyUK+PZpz8=",
+  "Hash": "m/w/QQB6p0zjl+Vn/1rERXKQN2DZnWFFj6Clb1KmthY=",
   "Source": "CryptographyWebApp",
   "BasePath": "_content/CryptographyWebApp",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CryptographyWebApp\\wwwroot",
       "Source": "CryptographyWebApp",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CryptographyWebApp.styles.css",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CryptographyWebApp.styles.css",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "CryptographyWebApp.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CryptographyWebApp.styles.css"
+      "OriginalItemSpec": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CryptographyWebApp.styles.css"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CryptographyWebApp.bundle.scp.css",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CryptographyWebApp.bundle.scp.css",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "CryptographyWebApp.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CryptographyWebApp.bundle.scp.css"
+      "OriginalItemSpec": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\CryptographyWebApp.bundle.scp.css"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\site.css",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\site.css",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\favicon.ico",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\favicon.ico",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\company-logo.png",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\company-logo.png",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "images/company-logo.png",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\images\\company-logo.png"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\cyber-security.png",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\cyber-security.png",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "images/cyber-security.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\images\\cyber-security.png"
     },
     {
-      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\security.png",
+      "Identity": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\images\\security.png",
       "SourceId": "CryptographyWebApp",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\novi_projekat\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
+      "ContentRoot": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\",
       "BasePath": "_content/CryptographyWebApp",
       "RelativePath": "images/security.png",
       "AssetKind": "All",
