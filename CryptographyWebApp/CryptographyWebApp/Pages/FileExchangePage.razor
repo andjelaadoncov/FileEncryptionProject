@@ -3,27 +3,31 @@
 @using CryptographyWebApp.Services
 @inject FileExchangeService FileExchangeService
 
-<h3>File Exchange</h3>
+<div class="file-exchange-page">
+    <div class="file-exchange-container server-section">
+        <h3>Server</h3>
+        <label>Server Port:</label>
+        <input type="number" @bind="ServerPort" />
+        <button @onclick="StartServer">Start as Server</button>
+    </div>
 
-<label>Server Port:</label>
-<input type="number" @bind="ServerPort" min="1024" max="65535" />
-<button @onclick="StartServer">Start as Server</button>
+    <div class="file-exchange-container client-section">
+        <h3>Client</h3>
+        <label>IP address:</label>
+        <input type="text" @bind="ServerIpAddress" placeholder="Enter server IP" />
 
-<br />
+        <label>Port:</label>
+        <input type="number" @bind="ClientPort" />
 
-<label>Server IP:</label>
-<input type="text" @bind="ServerIpAddress" placeholder="Enter server IP" />
-
-<label>Port:</label>
-<input type="number" @bind="ClientPort" min="1024" max="65535" />
-
-<InputFile OnChange="OnFileChange" />
-<button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
+        <InputFile OnChange="OnFileChange" />
+        <button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
+    </div>
+</div>
 
 @code {
-    private int ServerPort = 12345;
+    private int ServerPort = 8000;
     private string ServerIpAddress = "127.0.0.1";
-    private int ClientPort = 12345;
+    private int ClientPort = 8000;
     private string selectedFilePath;
 
     private async Task OnFileChange(InputFileChangeEventArgs e)

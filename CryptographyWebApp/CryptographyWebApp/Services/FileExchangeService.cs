@@ -37,7 +37,7 @@ namespace CryptographyWebApp.Services
 
                     Console.WriteLine($"Receiving file: {fileName} ({fileSize} bytes)");
 
-                    string savePath = Path.Combine(Directory.GetCurrentDirectory(), "Received_" + fileName);
+                    string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
                     using (FileStream fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write))
                     {
                         byte[] buffer = new byte[4096];

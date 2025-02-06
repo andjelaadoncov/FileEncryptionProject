@@ -455,3 +455,82 @@ p {
 
         
 }
+
+/* Deo za stilove za file-exchange stranicu */
+.file-exchange-page {
+    background-color: #C0ACFF;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    min-height: 100vh;
+    gap: 20px;
+}
+
+.file-exchange-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+    text-align: center;
+}
+
+    .file-exchange-container:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .file-exchange-container h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+
+    .file-exchange-container .form-group {
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .file-exchange-container label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .file-exchange-container input,
+    .file-exchange-container button {
+        width: 100%;
+        padding: 8px;
+        margin-top: 0.5rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 0.9rem;
+    }
+
+    .file-exchange-container .button-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        gap: 10px;
+    }
+
+    .file-exchange-container .primary-button {
+        flex: 1;
+        min-width: 100px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+.server-section, .client-section {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
