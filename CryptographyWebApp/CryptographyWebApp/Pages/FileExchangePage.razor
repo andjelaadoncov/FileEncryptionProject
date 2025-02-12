@@ -5,14 +5,16 @@
 
 <div class="file-exchange-page">
     <div class="file-exchange-container server-section">
-        <h3>Server</h3>
+        <h3>Server Mode</h3>
+        <p>In server mode, you listen for incoming connection requests. When a user connects, they send an encrypted file, which you receive and decrypt on your end.</p>
         <label>Server Port:</label>
         <input type="number" @bind="ServerPort" />
         <button @onclick="StartServer">Start as Server</button>
     </div>
 
     <div class="file-exchange-container client-section">
-        <h3>Client</h3>
+        <h3>Client Mode</h3>
+        <p>In client mode, choose an encryption algorithm, encrypt your selected file, and send it to a specific user by entering their IP address.</p>
         <label>IP address:</label>
         <input type="text" @bind="ServerIpAddress" placeholder="Enter server IP" />
 
@@ -20,12 +22,13 @@
         <input type="number" @bind="ClientPort" />
 
         <label>Encryption Algorithm:</label>
-        <select @bind="SelectedAlgorithm">
+        <select @bind="SelectedAlgorithm" class="dropdown">
             <option value="RC6">RC6</option>
             <option value="RC6 OFB">RC6 OFB</option>
             <option value="Bifid">Bifid</option>
         </select>
 
+        <label>Choose your file:</label>
         <InputFile OnChange="OnFileChange" />
         <button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
     </div>
@@ -36,7 +39,7 @@
     private string ServerIpAddress = "127.0.0.1";
     private int ClientPort = 8000;
     private string selectedFilePath;
-    private string SelectedAlgorithm = "RC6";
+    private string SelectedAlgorithm = "Bifid";
 
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {

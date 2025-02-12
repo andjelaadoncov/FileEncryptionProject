@@ -32,41 +32,48 @@ namespace CryptographyWebApp.Services
         {
             try
             {
-                using (client)
-                using (NetworkStream networkStream = client.GetStream())
+                Console.WriteLine("Client connected. Waiting for public key...");
+                NetworkStream networkStream = client.GetStream();
                 using (BinaryReader reader = new BinaryReader(networkStream))
+                using (BinaryWriter writer = new BinaryWriter(networkStream)) // Create writer here
                 {
                     // Receive public key from client
-                    byte[] clientPublicKey = reader.ReadBytes(reader.ReadInt32());
+                    int clientPublicKeyLength = reader.ReadInt32();
+                    byte[] clientPublicKey = reader.ReadBytes(clientPublicKeyLength);
+                    Console.WriteLine($"Received client public key: {clientPublicKey.Length} bytes");
 
                     // Generate server's public key
                     using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
                         byte[] serverPublicKey = diffieHellman.PublicKey.ToByteArray();
+                        Console.WriteLine($"Generated server public key: {serverPublicKey.Length} bytes");
 
                         // Send server's public key to client
-                        using (BinaryWriter writer = new BinaryWriter(networkStream))
-                        {
-                            writer.Write(serverPublicKey.Length);
-                            writer.Write(serverPublicKey);
-                        }
+                        writer.Write(serverPublicKey.Length);
+                        writer.Write(serverPublicKey);
+                        writer.Flush(); // Ensure data is sent
+                        Console.WriteLine("Sent server public key to client.");
 
                         // Derive shared secret
                         byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(clientPublicKey, CngKeyBlobFormat.EccPublicBlob));
+                        Console.WriteLine("Derived shared secret.");
 
                         // Receive file metadata
-                        string fileName = reader.ReadString();
-                        long fileSize = reader.ReadInt64();
+                        string fileName = reader.ReadString(); // Read file name
+                        long fileSize = reader.ReadInt64(); // Server sada prima ispravnu dužinu fajla
                         int hashLength = reader.ReadInt32();
                         byte[] receivedHash = reader.ReadBytes(hashLength);
+                        string algorithm = reader.ReadString(); // Čita ime algoritma
 
-                        Console.WriteLine($"Receiving file: {fileName} ({fileSize} bytes)");
+                        Console.WriteLine($"Received file metadata: {fileName}, {fileSize} bytes, hash length: {hashLength}");
 
                         // Receive encrypted file data
                         byte[] encryptedFileData = reader.ReadBytes((int)fileSize);
+                        Console.WriteLine($"Received encrypted file data: {encryptedFileData.Length} bytes");
 
                         // Decrypt file data
-                        byte[] decryptedFileData = _cryptoService.DecryptFile(encryptedFileData, "RC6", sharedSecret);
+                        byte[] decryptedFileData = _cryptoService.DecryptFile(encryptedFileData, algorithm, sharedSecret);
+                        Console.WriteLine("Decrypted file data.");
 
                         // Compute SHA-1 hash of the decrypted file data
                         byte[] computedHash;
@@ -74,6 +81,7 @@ namespace CryptographyWebApp.Services
                         {
                             computedHash = sha1.ComputeHash(decryptedFileData);
                         }
+                        Console.WriteLine("Computed hash of decrypted file data.");
 
                         // Verify file integrity
                         if (!computedHash.SequenceEqual(receivedHash))
@@ -85,7 +93,6 @@ namespace CryptographyWebApp.Services
                         // Save the decrypted file
                         string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
                         await File.WriteAllBytesAsync(savePath, decryptedFileData);
-
                         Console.WriteLine($"File {fileName} successfully received and decrypted.");
                     }
                 }
@@ -97,8 +104,10 @@ namespace CryptographyWebApp.Services
             finally
             {
                 client.Close();
+                Console.WriteLine("Client connection closed.");
             }
         }
+
 
         public async Task SendFile(string ipAddress, int port, string filePath, string algorithm)
         {
@@ -112,26 +121,32 @@ namespace CryptographyWebApp.Services
                     using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
                         byte[] clientPublicKey = diffieHellman.PublicKey.ToByteArray();
+                        Console.WriteLine($"Generated client public key: {clientPublicKey.Length} bytes");
 
                         // Send client's public key to server
                         writer.Write(clientPublicKey.Length);
                         writer.Write(clientPublicKey);
+                        Console.WriteLine("Sent client public key to server.");
 
                         // Receive server's public key
                         using (BinaryReader reader = new BinaryReader(networkStream))
                         {
                             int serverPublicKeyLength = reader.ReadInt32();
                             byte[] serverPublicKey = reader.ReadBytes(serverPublicKeyLength);
+                            Console.WriteLine($"Received server public key: {serverPublicKey.Length} bytes");
 
                             // Derive shared secret
                             byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
+                            Console.WriteLine("Derived shared secret.");
 
                             // Read file data
                             byte[] fileData = await File.ReadAllBytesAsync(filePath);
                             string fileName = Path.GetFileName(filePath);
+                            Console.WriteLine($"Read file data: {fileName}, {fileData.Length} bytes");
 
                             // Encrypt file data
                             byte[] encryptedFileData = _cryptoService.EncryptFile(fileData, algorithm, sharedSecret);
+                            Console.WriteLine($"Encrypted file data: {encryptedFileData.Length} bytes");
 
                             // Compute SHA-1 hash of the original file data
                             byte[] fileHash;
@@ -139,15 +154,19 @@ namespace CryptographyWebApp.Services
                             {
                                 fileHash = sha1.ComputeHash(fileData);
                             }
+                            Console.WriteLine("Computed file hash.");
 
                             // Send file metadata
-                            writer.Write(fileName);
-                            writer.Write(encryptedFileData.Length);
-                            writer.Write(fileHash.Length);
-                            writer.Write(fileHash);
+                            writer.Write(fileName); // Send file name
+                            writer.Write((long)encryptedFileData.Length); //Sada šaljemo long
+                            writer.Write(fileHash.Length); // Send hash length
+                            writer.Write(fileHash); // Send hash
+                            writer.Write(algorithm); // Dodajemo algoritam u metapodatke
+                            Console.WriteLine("Sent file metadata.");
 
                             // Send encrypted file data
                             writer.Write(encryptedFileData);
+                            Console.WriteLine("Sent encrypted file data.");
 
                             Console.WriteLine("File sent successfully.");
                         }

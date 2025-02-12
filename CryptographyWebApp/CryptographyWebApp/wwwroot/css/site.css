@@ -490,9 +490,10 @@ p {
         color: #333;
     }
 
-    .file-exchange-container .form-group {
+    .file-exchange-container p {
+        font-size: 0.9rem;
+        color: #666;
         margin-bottom: 1rem;
-        text-align: left;
     }
 
     .file-exchange-container label {
@@ -501,28 +502,41 @@ p {
     }
 
     .file-exchange-container input,
-    .file-exchange-container button {
+    .file-exchange-container button, 
+    .file-exchange-container .dropdown {
         width: 100%;
         padding: 8px;
         margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
         border: 1px solid #ddd;
         border-radius: 5px;
         font-size: 0.9rem;
     }
 
-    .file-exchange-container .button-group {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 1rem;
-        gap: 10px;
+    .file-exchange-container .dropdown {
+        flex: 1;
     }
 
-    .file-exchange-container .primary-button {
-        flex: 1;
-        min-width: 100px;
-        padding: 8px;
-        font-size: 0.9rem;
+    .file-exchange-container button {
+        /* Default styles for the button */
+        background-color: #C0ACFF; /* Background color */
+        color: #6e2dc2; /* Text color */
+        border: none; /* Remove default border */
+        cursor: pointer; /* Change cursor to pointer on hover */
+        transition: background-color 0.3s ease; /* Smooth transition for hover effect */
     }
+
+        /* Styles for when the button is disabled */
+        .file-exchange-container button:disabled {
+            background-color: #f0f0f0; /* Gray background */
+            color: #666666; /* Gray text */
+            cursor: not-allowed; /* Change cursor to indicate it's disabled */
+        }
+
+        /* Hover effect for when the button is enabled */
+        .file-exchange-container button:not(:disabled):hover {
+            background-color: #a88cff; /* Slightly darker shade for hover */
+        }
 
 .server-section, .client-section {
     flex: 1;

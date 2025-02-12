@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CryptographyWebApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+44fe2244b88e72fc34eed8502481d8c3345f5bd9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d7de2e71b847c0975fe2952f7ad6e20be6f9285")]
 [assembly: System.Reflection.AssemblyProductAttribute("CryptographyWebApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CryptographyWebApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
