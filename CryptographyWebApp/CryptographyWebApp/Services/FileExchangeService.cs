@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace CryptographyWebApp.Services
@@ -10,6 +12,7 @@ namespace CryptographyWebApp.Services
     {
         private TcpListener _listener;
         private int _serverPort;
+        private readonly CryptoService _cryptoService = new CryptoService();
 
         public async Task StartServer(int port)
         {
@@ -32,28 +35,58 @@ namespace CryptographyWebApp.Services
                 using (NetworkStream networkStream = client.GetStream())
                 using (BinaryReader reader = new BinaryReader(networkStream))
                 {
-                    string fileName = reader.ReadString();
-                    long fileSize = reader.ReadInt64();
+                    // Receive public key from client
+                    byte[] clientPublicKey = reader.ReadBytes(reader.ReadInt32());
 
-                    Console.WriteLine($"Receiving file: {fileName} ({fileSize} bytes)");
-
-                    string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
-                    using (FileStream fileStream = new FileStream(savePath, FileMode.Create, FileAccess.Write))
+                    // Generate server's public key
+                    using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
-                        byte[] buffer = new byte[4096];
-                        long totalBytesReceived = 0;
+                        byte[] serverPublicKey = diffieHellman.PublicKey.ToByteArray();
 
-                        while (totalBytesReceived < fileSize)
+                        // Send server's public key to client
+                        using (BinaryWriter writer = new BinaryWriter(networkStream))
                         {
-                            int bytesRead = await networkStream.ReadAsync(buffer, 0, buffer.Length);
-                            if (bytesRead == 0) break;
-
-                            await fileStream.WriteAsync(buffer, 0, bytesRead);
-                            totalBytesReceived += bytesRead;
+                            writer.Write(serverPublicKey.Length);
+                            writer.Write(serverPublicKey);
                         }
-                    }
 
-                    Console.WriteLine($"File {fileName} successfully received.");
+                        // Derive shared secret
+                        byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(clientPublicKey, CngKeyBlobFormat.EccPublicBlob));
+
+                        // Receive file metadata
+                        string fileName = reader.ReadString();
+                        long fileSize = reader.ReadInt64();
+                        int hashLength = reader.ReadInt32();
+                        byte[] receivedHash = reader.ReadBytes(hashLength);
+
+                        Console.WriteLine($"Receiving file: {fileName} ({fileSize} bytes)");
+
+                        // Receive encrypted file data
+                        byte[] encryptedFileData = reader.ReadBytes((int)fileSize);
+
+                        // Decrypt file data
+                        byte[] decryptedFileData = _cryptoService.DecryptFile(encryptedFileData, "RC6", sharedSecret);
+
+                        // Compute SHA-1 hash of the decrypted file data
+                        byte[] computedHash;
+                        using (SHA1 sha1 = SHA1.Create())
+                        {
+                            computedHash = sha1.ComputeHash(decryptedFileData);
+                        }
+
+                        // Verify file integrity
+                        if (!computedHash.SequenceEqual(receivedHash))
+                        {
+                            Console.WriteLine("File integrity check failed.");
+                            return;
+                        }
+
+                        // Save the decrypted file
+                        string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
+                        await File.WriteAllBytesAsync(savePath, decryptedFileData);
+
+                        Console.WriteLine($"File {fileName} successfully received and decrypted.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -66,7 +99,7 @@ namespace CryptographyWebApp.Services
             }
         }
 
-        public async Task SendFile(string ipAddress, int port, string filePath)
+        public async Task SendFile(string ipAddress, int port, string filePath, string algorithm)
         {
             try
             {
@@ -74,26 +107,50 @@ namespace CryptographyWebApp.Services
                 using (NetworkStream networkStream = client.GetStream())
                 using (BinaryWriter writer = new BinaryWriter(networkStream))
                 {
-                    string fileName = Path.GetFileName(filePath);
-                    long fileSize = new FileInfo(filePath).Length;
-
-                    // Šaljemo metapodatke
-                    writer.Write(fileName);
-                    writer.Write(fileSize);
-
-                    // Šaljemo fajl
-                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                    // Generate client's public key
+                    using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
-                        byte[] buffer = new byte[4096];
-                        int bytesRead;
+                        byte[] clientPublicKey = diffieHellman.PublicKey.ToByteArray();
 
-                        while ((bytesRead = await fileStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
+                        // Send client's public key to server
+                        writer.Write(clientPublicKey.Length);
+                        writer.Write(clientPublicKey);
+
+                        // Receive server's public key
+                        using (BinaryReader reader = new BinaryReader(networkStream))
                         {
-                            await networkStream.WriteAsync(buffer, 0, bytesRead);
+                            int serverPublicKeyLength = reader.ReadInt32();
+                            byte[] serverPublicKey = reader.ReadBytes(serverPublicKeyLength);
+
+                            // Derive shared secret
+                            byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
+
+                            // Read file data
+                            byte[] fileData = await File.ReadAllBytesAsync(filePath);
+                            string fileName = Path.GetFileName(filePath);
+
+                            // Encrypt file data
+                            byte[] encryptedFileData = _cryptoService.EncryptFile(fileData, algorithm, sharedSecret);
+
+                            // Compute SHA-1 hash of the original file data
+                            byte[] fileHash;
+                            using (SHA1 sha1 = SHA1.Create())
+                            {
+                                fileHash = sha1.ComputeHash(fileData);
+                            }
+
+                            // Send file metadata
+                            writer.Write(fileName);
+                            writer.Write(encryptedFileData.Length);
+                            writer.Write(fileHash.Length);
+                            writer.Write(fileHash);
+
+                            // Send encrypted file data
+                            writer.Write(encryptedFileData);
+
+                            Console.WriteLine("File sent successfully.");
                         }
                     }
-
-                    Console.WriteLine("File sent successfully.");
                 }
             }
             catch (Exception ex)

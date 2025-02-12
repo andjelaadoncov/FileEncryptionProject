@@ -19,6 +19,13 @@
         <label>Port:</label>
         <input type="number" @bind="ClientPort" />
 
+        <label>Encryption Algorithm:</label>
+        <select @bind="SelectedAlgorithm">
+            <option value="RC6">RC6</option>
+            <option value="RC6 OFB">RC6 OFB</option>
+            <option value="Bifid">Bifid</option>
+        </select>
+
         <InputFile OnChange="OnFileChange" />
         <button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
     </div>
@@ -29,6 +36,7 @@
     private string ServerIpAddress = "127.0.0.1";
     private int ClientPort = 8000;
     private string selectedFilePath;
+    private string SelectedAlgorithm = "RC6";
 
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {
@@ -45,7 +53,6 @@
         Console.WriteLine($"File selected: {selectedFilePath}");
     }
 
-
     private async Task SendFile()
     {
         if (string.IsNullOrEmpty(selectedFilePath))
@@ -54,7 +61,7 @@
             return;
         }
 
-        await FileExchangeService.SendFile(ServerIpAddress, ClientPort, selectedFilePath);
+        await FileExchangeService.SendFile(ServerIpAddress, ClientPort, selectedFilePath, SelectedAlgorithm);
     }
 
     private async Task StartServer()
