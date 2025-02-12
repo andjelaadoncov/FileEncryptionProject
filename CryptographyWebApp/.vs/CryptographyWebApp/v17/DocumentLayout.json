@@ -9,10 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\pages\\fileexchangepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\pages\\fileexchangepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\services\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\services\\cryptoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,21 +18,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CryptoService.cs",
-              "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Services\\CryptoService.cs",
-              "RelativeDocumentMoniker": "CryptographyWebApp\\Services\\CryptoService.cs",
-              "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Services\\CryptoService.cs",
-              "RelativeToolTip": "CryptographyWebApp\\Services\\CryptoService.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowCgAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-06T13:35:02.675Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -45,7 +28,7 @@
               "RelativeDocumentMoniker": "CryptographyWebApp\\Services\\FileExchangeService.cs",
               "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Services\\FileExchangeService.cs",
               "RelativeToolTip": "CryptographyWebApp\\Services\\FileExchangeService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAFoAAAANAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAKIAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-04T14:48:09.316Z",
               "EditorCaption": ""
@@ -58,7 +41,7 @@
               "RelativeDocumentMoniker": "CryptographyWebApp\\Pages\\FileExchangePage.razor",
               "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\FileExchangePage.razor",
               "RelativeToolTip": "CryptographyWebApp\\Pages\\FileExchangePage.razor",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAAD0AAAAJAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-02-04T13:37:37.842Z",
               "EditorCaption": ""

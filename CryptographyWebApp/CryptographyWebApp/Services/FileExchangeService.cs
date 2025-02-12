@@ -32,6 +32,7 @@ namespace CryptographyWebApp.Services
         {
             try
             {
+                using (client)
                 using (NetworkStream networkStream = client.GetStream())
                 using (BinaryReader reader = new BinaryReader(networkStream))
                 {
