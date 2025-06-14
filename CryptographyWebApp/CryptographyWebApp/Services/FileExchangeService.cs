@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CryptographyWebApp.Services
@@ -13,18 +14,50 @@ namespace CryptographyWebApp.Services
         private TcpListener _listener;
         private int _serverPort;
         private readonly CryptoService _cryptoService = new CryptoService();
+        private CancellationTokenSource _cancellationTokenSource;
+        public Action<string> OnFileReceived;
 
         public async Task StartServer(int port)
         {
             _serverPort = port;
+            _cancellationTokenSource = new CancellationTokenSource();
             _listener = new TcpListener(IPAddress.Any, _serverPort);
             _listener.Start();
             Console.WriteLine($"Server started on port {_serverPort}...");
 
-            while (true)
+            try
             {
-                TcpClient client = await _listener.AcceptTcpClientAsync();
-                _ = HandleClientAsync(client);
+                while (!_cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    if (_listener.Pending())
+                    {
+                        TcpClient client = await _listener.AcceptTcpClientAsync();
+                        _ = HandleClientAsync(client);
+                    }
+                    else
+                    {
+                        await Task.Delay(100); // da ne troši CPU bespotrebno
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Server exception: {ex.Message}");
+            }
+        }
+
+
+        public void StopServer()
+        {
+            try
+            {
+                _cancellationTokenSource?.Cancel();
+                _listener?.Stop();
+                Console.WriteLine("Server stopped.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error stopping server: {ex.Message}");
             }
         }
 
@@ -94,6 +127,7 @@ namespace CryptographyWebApp.Services
                         string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
                         await File.WriteAllBytesAsync(savePath, decryptedFileData);
                         Console.WriteLine($"File {fileName} successfully received and decrypted.");
+                        OnFileReceived?.Invoke(fileName);
                     }
                 }
             }
@@ -141,6 +175,11 @@ namespace CryptographyWebApp.Services
 
                             // Read file data
                             byte[] fileData = await File.ReadAllBytesAsync(filePath);
+                            if (algorithm == "Bifid") //ovo sam dodala jer bifid radi drugacije od ostalih
+                            {
+                                fileData = Encoding.UTF8.GetBytes(Encoding.UTF8.GetString(fileData).ToUpper());
+                            }
+
                             string fileName = Path.GetFileName(filePath);
                             Console.WriteLine($"Read file data: {fileName}, {fileData.Length} bytes");
 

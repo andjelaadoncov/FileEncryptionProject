@@ -9,7 +9,15 @@
         <p>In server mode, you listen for incoming connection requests. When a user connects, they send an encrypted file, which you receive and decrypt on your end.</p>
         <label>Server Port:</label>
         <input type="number" @bind="ServerPort" />
-        <button @onclick="StartServer">Start as Server</button>
+        <button @onclick="ToggleServer">
+            @(IsServerRunning ? "Stop Server" : "Start as Server")
+        </button>
+        <p>@ServerStatusMessage</p>
+        @if (!string.IsNullOrEmpty(FileReceivedMessage))
+        {
+            <p style="color:green">@FileReceivedMessage</p>
+        }
+
     </div>
 
     <div class="file-exchange-container client-section">
@@ -31,6 +39,7 @@
         <label>Choose your file:</label>
         <InputFile OnChange="OnFileChange" />
         <button @onclick="SendFile" disabled="@(selectedFilePath == null)">Send File</button>
+        <p>@FileSendStatusMessage</p>
     </div>
 </div>
 
@@ -40,6 +49,10 @@
     private int ClientPort = 8000;
     private string selectedFilePath;
     private string SelectedAlgorithm = "Bifid";
+    private string ServerStatusMessage = "";
+    private string FileSendStatusMessage = "";
+    private string FileReceivedMessage = "";
+    private bool IsServerRunning = false;
 
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {
@@ -60,15 +73,41 @@
     {
         if (string.IsNullOrEmpty(selectedFilePath))
         {
-            Console.WriteLine("No file selected.");
+            FileSendStatusMessage = "No file selected.";
             return;
         }
 
+        FileSendStatusMessage = "Sending file...";
         await FileExchangeService.SendFile(ServerIpAddress, ClientPort, selectedFilePath, SelectedAlgorithm);
+        FileSendStatusMessage = "File sent successfully.";
     }
 
-    private async Task StartServer()
+
+    private async Task ToggleServer()
     {
-        await FileExchangeService.StartServer(ServerPort);
+        if (!IsServerRunning)
+        {
+            ServerStatusMessage = "Starting server...";
+            FileExchangeService.OnFileReceived = (fileName) =>
+            {
+                FileReceivedMessage = $"You have received a file: {fileName}";
+                InvokeAsync(StateHasChanged); // obavezno za ažuriranje UI-ja iz background threada
+            };
+
+            _ = Task.Run(async () =>
+            {
+                await FileExchangeService.StartServer(ServerPort);
+            });
+
+            IsServerRunning = true;
+            ServerStatusMessage = $"Server started on port {ServerPort}.";
+        }
+        else
+        {
+            FileExchangeService.StopServer();
+            IsServerRunning = false;
+            ServerStatusMessage = "Server stopped.";
+        }
     }
+
 }

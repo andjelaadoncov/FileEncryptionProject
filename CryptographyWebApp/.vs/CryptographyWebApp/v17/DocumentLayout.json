@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\pages\\automaticencryptionpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\pages\\automaticencryptionpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\pages\\fileexchangepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\pages\\fileexchangepage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\services\\fileexchangeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\services\\fileexchangeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,31 +22,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "CryptographyWebApp\\wwwroot\\css\\site.css",
-              "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "CryptographyWebApp\\wwwroot\\css\\site.css",
-              "ViewState": "AQIAAPABAAAAAAAAAAAkwP4BAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-02-12T21:19:54.417Z"
+              "DocumentIndex": 0,
+              "Title": "AutomaticEncryptionPage.razor",
+              "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\AutomaticEncryptionPage.razor",
+              "RelativeDocumentMoniker": "CryptographyWebApp\\Pages\\AutomaticEncryptionPage.razor",
+              "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\AutomaticEncryptionPage.razor",
+              "RelativeToolTip": "CryptographyWebApp\\Pages\\AutomaticEncryptionPage.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-14T11:31:43.979Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FileExchangePage.razor",
               "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\FileExchangePage.razor",
               "RelativeDocumentMoniker": "CryptographyWebApp\\Pages\\FileExchangePage.razor",
               "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\FileExchangePage.razor",
               "RelativeToolTip": "CryptographyWebApp\\Pages\\FileExchangePage.razor",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB4AAAAgAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-04T13:37:37.842Z",
+              "WhenOpened": "2025-06-14T11:31:42.061Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileExchangeService.cs",
+              "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Services\\FileExchangeService.cs",
+              "RelativeDocumentMoniker": "CryptographyWebApp\\Services\\FileExchangeService.cs",
+              "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Services\\FileExchangeService.cs",
+              "RelativeToolTip": "CryptographyWebApp\\Services\\FileExchangeService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T11:31:39.722Z",
               "EditorCaption": ""
             }
           ]
