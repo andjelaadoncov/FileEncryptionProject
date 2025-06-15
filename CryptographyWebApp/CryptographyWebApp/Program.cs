@@ -4,18 +4,18 @@ using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Citanje direktorijuma iz konfiguracije
+// citanje direktorijuma iz konfiguracije
 var targetDirectory = builder.Configuration["FileDirectories:Target"];
 var outputDirectory = builder.Configuration["FileDirectories:X"];
 
-// Add services to the container.
+// dodavanje servisa
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<CryptoService>();
 builder.Services.AddSingleton(sp => new DirectoryWatcherService(
     targetDirectory,
     outputDirectory,
-    sp.GetRequiredService<CryptoService>() // This resolves the CryptoService dependency
+    sp.GetRequiredService<CryptoService>() 
 ));
 builder.Services.AddSingleton<FileExchangeService>();
 

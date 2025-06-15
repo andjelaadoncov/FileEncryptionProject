@@ -115,7 +115,7 @@
         set
         {
             _selectedAlgorithm = value;
-            DirectoryWatcherService.Update(SharedKey, _selectedAlgorithm); // Automatsko ažuriranje servisa
+            DirectoryWatcherService.Update(SharedKey, _selectedAlgorithm); // automatsko azuriranje servisa
         }
     }
 
@@ -145,16 +145,13 @@
         OutputFolder = DirectoryWatcherService.OutputDirectory;
         RefreshFileLists();
 
-        // Remove the call to EncryptExistingFiles
-        // EncryptExistingFiles(); // This line is removed
-
         DirectoryWatcherService.FilesChanged += OnFilesChanged;
     }
 
     private void OpenDecryptPopup(string filePath)
     {
         SelectedFileForDecryption = filePath;
-        DecryptOutputFolder = OutputFolder; // Default to the X directory
+        DecryptOutputFolder = OutputFolder; // default do X directorijuma
         ShowDecryptPopup = true;
     }
 
@@ -166,15 +163,15 @@
     private async Task ShowPopupNotification(string message, bool isSuccess = true)
     {
         ShowNotification = false;
-        StateHasChanged(); // forsiraj skrivanje ako je prethodna bila aktivna
-        await Task.Delay(100); // mali delay da omogući re-render
+        StateHasChanged(); // forsiram skrivanje
+        await Task.Delay(100); // delay za rerender
 
         NotificationText = message;
         NotificationCssClass = isSuccess ? "success-popup" : "error-popup";
         ShowNotification = true;
         StateHasChanged();
 
-        await Task.Delay(2000); // čekanje za fadeout
+        await Task.Delay(2000); // fadeout
         ShowNotification = false;
         StateHasChanged();
     }
@@ -202,7 +199,7 @@
         }
         else
         {
-            DirectoryWatcherService.Update(SharedKey, SelectedAlgorithm); // Ažuriranje pre aktiviranja praćenja
+            DirectoryWatcherService.Update(SharedKey, SelectedAlgorithm); // azuriranje pre pracenja direktorijuma
             DirectoryWatcherService.StartWatching();
             IsFileWatcherEnabled = true;
         }
@@ -226,7 +223,7 @@
                 return;
             }
 
-            // Učitaj odgovarajući ključ iz Keys foldera
+            // citam kljuc sacuvan za svaki file
             string keyFolderPath = Path.Combine(AppContext.BaseDirectory, "Keys");
             string keyFileName = Path.GetFileNameWithoutExtension(SelectedFileForDecryption) + ".key";
             string keyFilePath = Path.Combine(keyFolderPath, keyFileName);
@@ -241,23 +238,23 @@
 
             byte[] decryptedData = CryptoService.DecryptFile(encryptedData, DecryptAlgorithm, SharedKey);
 
-            // Extract the original extension from the decrypted data (first 20 bytes)
+            // izvlacenje ekstenzije iz prvih 20 bytes
             byte[] extensionBytes = new byte[20];
             Buffer.BlockCopy(decryptedData, 0, extensionBytes, 0, extensionBytes.Length);
             string originalExtension = System.Text.Encoding.UTF8.GetString(extensionBytes).TrimEnd('\0');
 
-            // Validate the extracted extension
+            // validiranje izvucene ekstenzije
             if (string.IsNullOrWhiteSpace(originalExtension) || !originalExtension.StartsWith("."))
             {
                 await ShowPopupNotification($"Invalid file extension extracted: {originalExtension}", false);
                 return;
             }
 
-            // Extract the actual file data (remaining bytes after the extension header)
+            // izdvajam content file-a bez ekstenzije
             byte[] fileData = new byte[decryptedData.Length - extensionBytes.Length];
             Buffer.BlockCopy(decryptedData, extensionBytes.Length, fileData, 0, fileData.Length);
 
-            // Save the decrypted file with the original extension
+            //deo za cuvanje file sa originalnom ekstenzijom
             string decryptedFileName = Path.GetFileNameWithoutExtension(SelectedFileForDecryption) + "_decrypted" + originalExtension;
             string decryptedPath = Path.Combine(DecryptOutputFolder, decryptedFileName);
             await File.WriteAllBytesAsync(decryptedPath, fileData);

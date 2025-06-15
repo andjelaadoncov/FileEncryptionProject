@@ -36,7 +36,7 @@ namespace CryptographyWebApp.Services
                     }
                     else
                     {
-                        await Task.Delay(100); // da ne troši CPU bespotrebno
+                        await Task.Delay(100); // da ne trosi CPU bespotrebno
                     }
                 }
             }
@@ -68,47 +68,47 @@ namespace CryptographyWebApp.Services
                 Console.WriteLine("Client connected. Waiting for public key...");
                 NetworkStream networkStream = client.GetStream();
                 using (BinaryReader reader = new BinaryReader(networkStream))
-                using (BinaryWriter writer = new BinaryWriter(networkStream)) // Create writer here
+                using (BinaryWriter writer = new BinaryWriter(networkStream)) 
                 {
-                    // Receive public key from client
+                    // dobijanje public key-a od klijenta
                     int clientPublicKeyLength = reader.ReadInt32();
                     byte[] clientPublicKey = reader.ReadBytes(clientPublicKeyLength);
                     Console.WriteLine($"Received client public key: {clientPublicKey.Length} bytes");
 
-                    // Generate server's public key
+                    // generisanje serverskog public key-a
                     using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
                         byte[] serverPublicKey = diffieHellman.PublicKey.ToByteArray();
                         Console.WriteLine($"Generated server public key: {serverPublicKey.Length} bytes");
 
-                        // Send server's public key to client
+                        // slanje serverskog public keya do klijenta
                         writer.Write(serverPublicKey.Length);
                         writer.Write(serverPublicKey);
-                        writer.Flush(); // Ensure data is sent
+                        writer.Flush();
                         Console.WriteLine("Sent server public key to client.");
 
-                        // Derive shared secret
+                        // izvedi zajednicki tajni kljuc
                         byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(clientPublicKey, CngKeyBlobFormat.EccPublicBlob));
                         Console.WriteLine("Derived shared secret.");
 
-                        // Receive file metadata
-                        string fileName = reader.ReadString(); // Read file name
-                        long fileSize = reader.ReadInt64(); // Server sada prima ispravnu dužinu fajla
+                        // dobijanje file metadata
+                        string fileName = reader.ReadString(); 
+                        long fileSize = reader.ReadInt64(); // server sada prima ispravnu duzinu fajla
                         int hashLength = reader.ReadInt32();
                         byte[] receivedHash = reader.ReadBytes(hashLength);
-                        string algorithm = reader.ReadString(); // Čita ime algoritma
+                        string algorithm = reader.ReadString(); // cita ime algoritma
 
                         Console.WriteLine($"Received file metadata: {fileName}, {fileSize} bytes, hash length: {hashLength}");
 
-                        // Receive encrypted file data
+                        // dobijanje ekriptovanog sadrzaja
                         byte[] encryptedFileData = reader.ReadBytes((int)fileSize);
                         Console.WriteLine($"Received encrypted file data: {encryptedFileData.Length} bytes");
 
-                        // Decrypt file data
+                        // dekripcija sadrzaja
                         byte[] decryptedFileData = _cryptoService.DecryptFile(encryptedFileData, algorithm, sharedSecret);
                         Console.WriteLine("Decrypted file data.");
 
-                        // Compute SHA-1 hash of the decrypted file data
+                        // racunanje SHA-1 hash za dekriptovan sadrzaj
                         byte[] computedHash;
                         using (SHA1 sha1 = SHA1.Create())
                         {
@@ -116,14 +116,14 @@ namespace CryptographyWebApp.Services
                         }
                         Console.WriteLine("Computed hash of decrypted file data.");
 
-                        // Verify file integrity
+                        //  provera integriteta
                         if (!computedHash.SequenceEqual(receivedHash))
                         {
                             Console.WriteLine("File integrity check failed.");
                             return;
                         }
 
-                        // Save the decrypted file
+                        // cuvanje
                         string savePath = Path.Combine(Directory.GetCurrentDirectory(), "received_" + fileName);
                         await File.WriteAllBytesAsync(savePath, decryptedFileData);
                         Console.WriteLine($"File {fileName} successfully received and decrypted.");
@@ -151,29 +151,29 @@ namespace CryptographyWebApp.Services
                 using (NetworkStream networkStream = client.GetStream())
                 using (BinaryWriter writer = new BinaryWriter(networkStream))
                 {
-                    // Generate client's public key
+                    // generisanje klijentskog kljuca
                     using (ECDiffieHellmanCng diffieHellman = new ECDiffieHellmanCng())
                     {
                         byte[] clientPublicKey = diffieHellman.PublicKey.ToByteArray();
                         Console.WriteLine($"Generated client public key: {clientPublicKey.Length} bytes");
 
-                        // Send client's public key to server
+                        // posalji klijentov kljuc do servera
                         writer.Write(clientPublicKey.Length);
                         writer.Write(clientPublicKey);
                         Console.WriteLine("Sent client public key to server.");
 
-                        // Receive server's public key
+                        // primi serverski public key
                         using (BinaryReader reader = new BinaryReader(networkStream))
                         {
                             int serverPublicKeyLength = reader.ReadInt32();
                             byte[] serverPublicKey = reader.ReadBytes(serverPublicKeyLength);
                             Console.WriteLine($"Received server public key: {serverPublicKey.Length} bytes");
 
-                            // Derive shared secret
+                            // izvedi zajednicki tajni kljuc
                             byte[] sharedSecret = diffieHellman.DeriveKeyMaterial(CngKey.Import(serverPublicKey, CngKeyBlobFormat.EccPublicBlob));
                             Console.WriteLine("Derived shared secret.");
 
-                            // Read file data
+                            
                             byte[] fileData = await File.ReadAllBytesAsync(filePath);
                             if (algorithm == "Bifid") //ovo sam dodala jer bifid radi drugacije od ostalih
                             {
@@ -183,11 +183,11 @@ namespace CryptographyWebApp.Services
                             string fileName = Path.GetFileName(filePath);
                             Console.WriteLine($"Read file data: {fileName}, {fileData.Length} bytes");
 
-                            // Encrypt file data
+                            // enkripcija sadrzaja
                             byte[] encryptedFileData = _cryptoService.EncryptFile(fileData, algorithm, sharedSecret);
                             Console.WriteLine($"Encrypted file data: {encryptedFileData.Length} bytes");
 
-                            // Compute SHA-1 hash of the original file data
+                            // racunanje SHA-1 hash za originalni sadrzaj
                             byte[] fileHash;
                             using (SHA1 sha1 = SHA1.Create())
                             {
@@ -195,15 +195,15 @@ namespace CryptographyWebApp.Services
                             }
                             Console.WriteLine("Computed file hash.");
 
-                            // Send file metadata
-                            writer.Write(fileName); // Send file name
-                            writer.Write((long)encryptedFileData.Length); //Sada šaljemo long
-                            writer.Write(fileHash.Length); // Send hash length
-                            writer.Write(fileHash); // Send hash
-                            writer.Write(algorithm); // Dodajemo algoritam u metapodatke
+                            // slanje file metadata
+                            writer.Write(fileName); 
+                            writer.Write((long)encryptedFileData.Length); // saljemo long
+                            writer.Write(fileHash.Length); // saljem hash length
+                            writer.Write(fileHash); // saljem hash
+                            writer.Write(algorithm); // dodavanje algoritam u metapodatke
                             Console.WriteLine("Sent file metadata.");
 
-                            // Send encrypted file data
+                            // slanje fajla koji je ekriptovan
                             writer.Write(encryptedFileData);
                             Console.WriteLine("Sent encrypted file data.");
 

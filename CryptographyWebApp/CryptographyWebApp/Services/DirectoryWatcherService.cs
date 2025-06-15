@@ -25,8 +25,8 @@ namespace CryptographyWebApp.Services
             _fileWatcher = new FileSystemWatcher(targetDirectory)
             {
                 NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size,
-                Filter = "*.*", // Track all files
-                EnableRaisingEvents = false // Initially disabled
+                Filter = "*.*", // pracenje svih fajlova
+                EnableRaisingEvents = false // inicijalno disable
             };
 
             _fileWatcher.Created += OnFileCreated;
@@ -45,13 +45,13 @@ namespace CryptographyWebApp.Services
             {
                 string filePath = e.FullPath;
 
-                // Wait for the file to be available
+                // cekanje da fajl bude dostupan
                 Task.Delay(200).Wait();
 
                 byte[] fileData = File.ReadAllBytes(filePath);
                 string originalExtension = Path.GetExtension(filePath);
 
-                // Encode the original extension as a fixed-length header (e.g., 20 bytes)
+                // kodiranje originalne ekstenzije kao zaglavlje fiksne duzine 
                 byte[] extensionBytes = System.Text.Encoding.UTF8.GetBytes(originalExtension.PadRight(20, '\0'));
                 byte[] combinedData = new byte[extensionBytes.Length + fileData.Length];
                 Buffer.BlockCopy(extensionBytes, 0, combinedData, 0, extensionBytes.Length);
@@ -59,7 +59,7 @@ namespace CryptographyWebApp.Services
 
                 byte[] encryptedData = _cryptoService.EncryptFile(combinedData, _algorithm, _sharedKey);
 
-                // Sačuvaj ključ u Keys folderu
+                // kljuc u Keys folderu
                 string keyFolderPath = Path.Combine(AppContext.BaseDirectory, "Keys");
                 if (!Directory.Exists(keyFolderPath))
                 {
@@ -73,7 +73,7 @@ namespace CryptographyWebApp.Services
                 string outputFilePath = Path.Combine(_outputDirectory, Path.GetFileNameWithoutExtension(filePath) + "_encrypted.dat");
                 File.WriteAllBytes(outputFilePath, encryptedData);
 
-                FilesChanged?.Invoke(); // Refresh the display
+                FilesChanged?.Invoke(); // refresh za display
             }
             catch (Exception ex)
             {

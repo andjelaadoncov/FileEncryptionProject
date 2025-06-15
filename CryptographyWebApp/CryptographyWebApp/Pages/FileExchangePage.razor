@@ -57,7 +57,7 @@
     private async Task OnFileChange(InputFileChangeEventArgs e)
     {
         var file = e.File;
-        var tempPath = Path.Combine(Path.GetTempPath(), file.Name); // Čuva originalno ime fajla
+        var tempPath = Path.Combine(Path.GetTempPath(), file.Name); // cuvam originalno ime fajla
 
         using (var stream = file.OpenReadStream())
         using (var fileStream = File.Create(tempPath))
@@ -91,7 +91,7 @@
             FileExchangeService.OnFileReceived = (fileName) =>
             {
                 FileReceivedMessage = $"You have received a file: {fileName}";
-                InvokeAsync(StateHasChanged); // obavezno za ažuriranje UI-ja iz background threada
+                InvokeAsync(StateHasChanged); // obavezno za azuriranje UI-ja iz background threada
             };
 
             _ = Task.Run(async () =>

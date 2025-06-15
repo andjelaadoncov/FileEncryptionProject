@@ -43,7 +43,7 @@ namespace CryptographyWebApp
 
         private byte[] OFBMode(byte[] input, byte[] key, byte[] iv)
         {
-            int blockSize = 16; // Veličina bloka je 16 bajtova za RC6
+            int blockSize = 16; // veličina bloka je 16 bajtova za RC6
             byte[] output = new byte[input.Length];
 
             byte[] keystreamBlock = new byte[blockSize];
@@ -53,9 +53,9 @@ namespace CryptographyWebApp
             {
                 int offset = i * blockSize;
 
-                // Generiši keystream blok
+                // generisanje keystream bloka
                 byte[] localKeystream = _rc6Cipher.Encrypt(keystreamBlock, key);
-                Array.Resize(ref localKeystream, blockSize); // Osiguraj da ima tačno 16 bajtova
+                Array.Resize(ref localKeystream, blockSize); // osigurava da ima tacno 16 bajtova
                 Buffer.BlockCopy(localKeystream, 0, keystreamBlock, 0, blockSize);
 
                 // XOR keystream-a sa podacima

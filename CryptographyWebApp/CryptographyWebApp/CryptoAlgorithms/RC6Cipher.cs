@@ -11,9 +11,9 @@ namespace CryptographyWebApp
 
         private const int W = 32; //velicina reci
         private const int R = 20; //rc6 koristi 20 rundi za sifrovanje 
-        private const uint P32 = 0xB7E15163; // Konstantno P za generisanje ključa
-        private const uint Q32 = 0x9E3779B9; // Konstantno Q za generisanje ključa
-        private uint[] S; // Prošireni ključ
+        private const uint P32 = 0xB7E15163; // konstantno P za generisanje ključa
+        private const uint Q32 = 0x9E3779B9; // konstantno Q za generisanje ključa
+        private uint[] S; // prosireni kljuc
 
         private static uint RotateLeft(uint value, int shift) => (value << shift) | (value >> (32 - shift));
         private static uint RotateRight(uint value, int shift) => (value >> shift) | (value << (32 - shift));
@@ -27,7 +27,7 @@ namespace CryptographyWebApp
                 L[i] = BitConverter.ToUInt32(key, i * 4);
             }
 
-            int t = 2 * (R + 2); // Broj podključeva
+            int t = 2 * (R + 2); // broj podkljuceva
             S = new uint[t];
             S[0] = P32;
             for (int i = 1; i < t; i++)

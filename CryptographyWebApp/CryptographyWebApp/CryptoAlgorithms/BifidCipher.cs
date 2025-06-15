@@ -38,11 +38,11 @@ namespace CryptographyWebApp
 
         private void InitializePolybiusSquare(string key)
         {
-            string alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"; // Bez J
+            string alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"; // bez J
             HashSet<char> usedChars = new HashSet<char>();
             StringBuilder matrixBuilder = new StringBuilder();
 
-            // Ako postoji ključ, prvo ga dodajemo u Polybius matricu
+            // ako postoji kljuc, dodaje se prvo u Polybius matricu
             if (!string.IsNullOrEmpty(key))
             {
                 foreach (char c in key.ToUpper())
@@ -55,7 +55,7 @@ namespace CryptographyWebApp
                 }
             }
 
-            // Dodajemo preostala slova
+            // dodavanje preostalih slova
             foreach (char c in alphabet)
             {
                 if (!usedChars.Contains(c))
@@ -64,7 +64,7 @@ namespace CryptographyWebApp
                 }
             }
 
-            // Popunjavamo matricu
+            // popunjavanje matrice
             int index = 0;
             for (int row = 0; row < 5; row++)
             {
@@ -84,7 +84,7 @@ namespace CryptographyWebApp
             List<int> cols = new List<int>();
             Dictionary<int, char> specialCharacters = new Dictionary<int, char>();
 
-            // Sačuvaj specijalne znakove i razmake
+            // cuvam specijalne znakove i razmake
             for (int i = 0; i < plaintext.Length; i++)
             {
                 char c = plaintext[i];
@@ -100,19 +100,19 @@ namespace CryptographyWebApp
                 }
             }
 
-            // Mešamo koordinate
+            // mesanje koordinata
             List<int> mixed = new List<int>();
             mixed.AddRange(rows);
             mixed.AddRange(cols);
 
-            // Delimo koordinate u parove i generišemo šifrat
+            // deljenje koordinate u parove i generisanje sifrata
             StringBuilder ciphertext = new StringBuilder();
             int charIndex = 0;
             for (int i = 0; i < plaintext.Length; i++)
             {
                 if (specialCharacters.ContainsKey(i))
                 {
-                    ciphertext.Append(specialCharacters[i]); // Vrati specijalne znakove
+                    ciphertext.Append(specialCharacters[i]); // vracam specijalne znakove
                 }
                 else
                 {
@@ -131,7 +131,7 @@ namespace CryptographyWebApp
             List<int> coordinates = new List<int>();
             Dictionary<int, char> specialCharacters = new Dictionary<int, char>();
 
-            // Sačuvaj specijalne znakove i razmake
+            // cuvam specijalne znakove i razmake
             for (int i = 0; i < ciphertext.Length; i++)
             {
                 char c = ciphertext[i];
@@ -147,19 +147,19 @@ namespace CryptographyWebApp
                 }
             }
 
-            // Delimo koordinate na dve grupe
+            // deljenje koordinate na dve grupe
             int half = coordinates.Count / 2;
             List<int> rows = coordinates.GetRange(0, half);
             List<int> cols = coordinates.GetRange(half, half);
 
-            // Obnavljamo originalni tekst iz koordinata
+            // obnavljanje originalnog tekst iz koordinata
             StringBuilder plaintext = new StringBuilder();
             int coordIndex = 0;
             for (int i = 0; i < ciphertext.Length; i++)
             {
                 if (specialCharacters.ContainsKey(i))
                 {
-                    plaintext.Append(specialCharacters[i]); // Vrati specijalne znakove
+                    plaintext.Append(specialCharacters[i]); // vracam specijalne znakove
                 }
                 else
                 {
