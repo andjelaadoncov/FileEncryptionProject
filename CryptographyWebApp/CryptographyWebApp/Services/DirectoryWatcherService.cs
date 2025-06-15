@@ -59,6 +59,17 @@ namespace CryptographyWebApp.Services
 
                 byte[] encryptedData = _cryptoService.EncryptFile(combinedData, _algorithm, _sharedKey);
 
+                // Sačuvaj ključ u Keys folderu
+                string keyFolderPath = Path.Combine(AppContext.BaseDirectory, "Keys");
+                if (!Directory.Exists(keyFolderPath))
+                {
+                    Directory.CreateDirectory(keyFolderPath);
+                }
+
+                string keyFileName = Path.GetFileNameWithoutExtension(filePath) + "_encrypted.key";
+                string keyFilePath = Path.Combine(keyFolderPath, keyFileName);
+                File.WriteAllBytes(keyFilePath, _sharedKey);
+
                 string outputFilePath = Path.Combine(_outputDirectory, Path.GetFileNameWithoutExtension(filePath) + "_encrypted.dat");
                 File.WriteAllBytes(outputFilePath, encryptedData);
 

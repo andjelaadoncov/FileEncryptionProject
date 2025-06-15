@@ -548,3 +548,51 @@ p {
     box-sizing: border-box;
 }
 
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 14px; /* Manje margine */
+    border-radius: 6px; /* Manji zaobljeni ugao */
+    font-size: 0.9rem; /* Manje pismo */
+    font-weight: 500;
+    z-index: 9999;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Suptilna senka */
+}
+
+.success-popup {
+    background-color: #28a745;
+    color: white;
+}
+
+.error-popup {
+    background-color: #dc3545;
+    color: white;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+

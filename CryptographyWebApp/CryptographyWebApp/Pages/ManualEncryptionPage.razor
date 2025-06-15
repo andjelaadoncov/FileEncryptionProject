@@ -86,13 +86,13 @@
     </div>
 }
 
-<!-- Result Message -->
-<div class="message-box">
-    @if (!string.IsNullOrEmpty(ResultMessage))
-    {
-        <p class="@ResultMessageClass">@ResultMessage</p>
-    }
-</div>
+<!-- Popup Notification -->
+@if (ShowNotification)
+{
+    <div class="notification-popup @NotificationCssClass">
+        @NotificationText
+    </div>
+}
 
 @code {
     private string _selectedAlgorithm = "Bifid";
@@ -117,6 +117,12 @@
     private string DecryptAlgorithm = "Bifid";
     private string DecryptOutputFolder;
     private string SelectedFileForDecryption;
+
+    //notification pop up
+    private bool ShowNotification = false;
+    private string NotificationText;
+    private string NotificationCssClass;
+
 
     protected override void OnInitialized()
     {
@@ -163,6 +169,16 @@
             byte[] fileData = File.ReadAllBytes(FilePath);
             string originalExtension = Path.GetExtension(FilePath);
 
+            string keyFolderPath = Path.Combine(AppContext.BaseDirectory, "Keys");
+            if (!Directory.Exists(keyFolderPath))
+            {
+                Directory.CreateDirectory(keyFolderPath);
+            }
+
+            string keyFileName = Path.GetFileNameWithoutExtension(FilePath) + "_encrypted.key";
+            string keyFilePath = Path.Combine(keyFolderPath, keyFileName);
+            await File.WriteAllBytesAsync(keyFilePath, SharedKey);
+
             // Encode the original extension as a fixed-length header (e.g., 20 bytes)
             byte[] extensionBytes = System.Text.Encoding.UTF8.GetBytes(originalExtension.PadRight(20, '\0'));
             byte[] combinedData = new byte[extensionBytes.Length + fileData.Length];
@@ -196,6 +212,24 @@
         ShowDecryptPopup = false;
     }
 
+    private async Task ShowPopupNotification(string message, bool isSuccess = true)
+    {
+        ShowNotification = false;
+        StateHasChanged(); // forsiraj skrivanje ako je prethodna bila aktivna
+        await Task.Delay(100); // mali delay da omogući re-render
+
+        NotificationText = message;
+        NotificationCssClass = isSuccess ? "success-popup" : "error-popup";
+        ShowNotification = true;
+        StateHasChanged();
+
+        await Task.Delay(2000); // čekanje za fadeout
+        ShowNotification = false;
+        StateHasChanged();
+    }
+
+
+
     private async Task DecryptFileFromList()
     {
         try
@@ -214,6 +248,17 @@
                 return;
             }
 
+            string keyFolderPath = Path.Combine(AppContext.BaseDirectory, "Keys");
+            string keyFileName = Path.GetFileNameWithoutExtension(SelectedFileForDecryption) + ".key";
+            string keyFilePath = Path.Combine(keyFolderPath, keyFileName);
+
+            if (!File.Exists(keyFilePath))
+            {
+                ResultMessage = $"Key file {keyFileName} not found in Keys folder.";
+                return;
+            }
+
+            SharedKey = await File.ReadAllBytesAsync(keyFilePath); //trazim kljuc za svaki file
             byte[] decryptedData = CryptoService.DecryptFile(encryptedData, DecryptAlgorithm, SharedKey);
 
             // Extract the original extension from the decrypted data (first 20 bytes)
@@ -230,17 +275,19 @@
             string decryptedPath = Path.Combine(DecryptOutputFolder, decryptedFileName);
             await File.WriteAllBytesAsync(decryptedPath, fileData);
 
-            ResultMessage = $"File {SelectedFileForDecryption} successfully decrypted to {decryptedPath}.";
             RefreshFileLists();
             CloseDecryptPopup();
+            StateHasChanged();
+
+            await ShowPopupNotification($"The file you've chosen has been succesfully decrypted and saved in {DecryptOutputFolder}.");
         }
         catch (CryptographicException cryptoEx)
         {
-            ResultMessage = $"Decryption failed: {cryptoEx.Message}. Please ensure the correct key and algorithm are used.";
+            await ShowPopupNotification($"Decryption failed: {cryptoEx.Message}", false);
         }
         catch (Exception ex)
         {
-            ResultMessage = $"Error decrypting file {SelectedFileForDecryption}: {ex.Message}";
+            await ShowPopupNotification($"Decryption failed: {ex.Message}", false);
         }
     }
 
