@@ -1,12 +1,37 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|c:\\fakultet\\7_semestar\\zastita informacija\\projekat_18627\\fileencryptionproject\\cryptographywebapp\\cryptographywebapp\\pages\\manualencryptionpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{79E4F4A4-13A8-4149-B233-59287E08FAB1}|CryptographyWebApp\\CryptographyWebApp.csproj|solutionrelative:cryptographywebapp\\pages\\manualencryptionpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ManualEncryptionPage.razor",
+              "DocumentMoniker": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\ManualEncryptionPage.razor",
+              "RelativeDocumentMoniker": "CryptographyWebApp\\Pages\\ManualEncryptionPage.razor",
+              "ToolTip": "C:\\FAKULTET\\7_SEMESTAR\\ZASTITA INFORMACIJA\\projekat_18627\\FileEncryptionProject\\CryptographyWebApp\\CryptographyWebApp\\Pages\\ManualEncryptionPage.razor",
+              "RelativeToolTip": "CryptographyWebApp\\Pages\\ManualEncryptionPage.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAIwAAABEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-06-16T11:23:44.094Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
