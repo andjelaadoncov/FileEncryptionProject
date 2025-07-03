@@ -5,9 +5,9 @@
 ## 🔍 Overview
 
 This application allows users to:
-- Encrypting files using custom and standard algorithms
-- Decrypting encrypted files with the correct key and algorithm
-- Exchanging encrypted files between users over a secure TCP connection
+- Encrypt files using custom and standard algorithms
+- Decrypt encrypted files with the correct key and algorithm
+- Exchange encrypted files between users over a secure TCP connection
 - Verify file integrity using SHA-1 hashing
 - Automatically encrypt new added files with File System Watcher
 
